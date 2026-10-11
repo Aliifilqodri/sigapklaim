@@ -78,6 +78,7 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chips button{padding:8px 13px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;font:800 14px "Bricolage Grotesque",sans-serif;cursor:pointer}.chips button[aria-pressed=true]{background:var(--red);color:#fff}
 .sum .r{padding:9px 0;border-bottom:2px dashed var(--ink)}.sum span{display:block;color:var(--mute);font-weight:600;font-size:12px}.sum b{font-weight:800;font-size:16px;word-break:break-word;white-space:pre-wrap}
 .badge{display:inline-block;font-weight:800;font-size:18px;padding:6px 14px;border:3px solid var(--ink);border-radius:12px;background:var(--yel);box-shadow:4px 4px 0 var(--ink);transform:rotate(-2deg);margin:0 0 14px}
+.pr{padding:11px 0;border-top:2px dashed var(--ink)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -136,10 +137,12 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <div class="card"><div class="doc"><div><b>KTP</b><small>Foto jelas, tidak buram</small></div><button class="btn sm" id="uKtp">Unggah</button></div>
 <div class="ktp hide" id="ktp"><svg style="float:right;width:54px;height:66px;margin-left:8px" viewBox="0 0 52 64" aria-hidden="true"><rect width="52" height="64" rx="4" fill="#C4DEF7" stroke="#0B1020" stroke-width="2"/><circle cx="26" cy="24" r="11" fill="#0B1020"/><path d="M6 64c2-18 12-22 20-22s18 4 20 22z" fill="#0B1020"/></svg><b>PROVINSI DKI JAKARTA</b><span class="chip"></span><br>NIK : 3175 0000 0000 0001<br>Nama : BUDI SANTOSO<br>Tgl Lahir : 12-08-1995</div>
 <div class="ocr" id="ocr"></div></div>
-<div class="card"><div class="doc"><div><b>Surat klaim</b><small>Foto atau PDF</small></div><button class="btn sm" id="uSurat">Unggah</button></div>
-<div class="thumb hide" id="thS"><svg viewBox="0 0 34 44" aria-hidden="true"><rect x="1" y="1" width="32" height="42" rx="4" fill="#fff" stroke="#0B1020" stroke-width="2"/><path d="M7 12h20M7 19h20M7 26h12" stroke="#2F5BFF" stroke-width="3" stroke-linecap="round"/></svg>surat-klaim.pdf · terbaca otomatis</div></div>
-<div class="card hide" id="dmgCard"><div class="doc"><div><b id="dmgT">Dokumen pendukung</b><small id="dmgS">Foto atau PDF</small></div><button class="btn sm" id="uDmg">Unggah</button></div>
-<div class="car hide" id="car"><svg viewBox="0 0 320 130" aria-label="Dokumen pendukung dummy"><rect x="95" y="8" width="130" height="114" rx="6" fill="#fff" stroke="#0B1020" stroke-width="3"/><path d="M112 34h96M112 50h96M112 66h70M112 82h96" stroke="#2F5BFF" stroke-width="4" stroke-linecap="round"/><rect x="104" y="24" width="112" height="52" rx="4" fill="none" stroke="#FFC93C" stroke-width="4" stroke-dasharray="7 5"/><circle cx="196" cy="102" r="14" fill="none" stroke="#FF4D3D" stroke-width="3"/><path d="m190 102 4 4 8-9" stroke="#FF4D3D" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div><div class="ocr" id="ocr2"></div></div>
+<div class="card" id="pk"><div class="doc" style="margin-bottom:4px"><b>Berkas pelengkap</b><span class="tag" id="pkc">0/4</span></div>
+<div class="doc pr"><div><b>Keterangan ahli waris</b><small>Foto atau PDF</small></div><button class="btn sm" data-pk="Ahli waris terbaca">Unggah</button></div>
+<div class="doc pr"><div><b>SIM asli</b><small>Foto SIM yang jelas</small></div><button class="btn sm" data-pk="Nomor SIM terbaca">Unggah</button></div>
+<div class="doc pr"><div><b>Surat kecelakaan lalu lintas</b><small>Dari kepolisian</small></div><button class="btn sm" data-pk="Nomor laporan polisi terbaca">Unggah</button></div>
+<div class="doc pr"><div><b>Surat kematian / prosentase kecacatan dari dokter / biaya rumah sakit</b><small>Pilih sesuai jenis klaim</small></div><button class="btn sm" data-pk="Surat dokter terbaca">Unggah</button></div>
+<div class="ocr" id="ocr2"></div></div>
 <button class="btn blue" id="n3" disabled>Periksa data</button>
 </section>
 
@@ -194,8 +197,7 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <h1 style="font-size:28px;margin-top:0">Makasih, <span id="nm"></span>! 🎉</h1><div class="badge" id="bd"></div>
 <div class="sum"><div class="r"><span>Penguji</span><b id="rN"></b></div><div class="r"><span>Waktu menyelesaikan klaim</span><b id="rW"></b></div><div class="r"><span>Bagian yang membingungkan</span><b id="rP"></b></div><div class="r"><span>Komentar</span><b id="rC"></b></div><div class="r" style="border:0"><span>Kemudahan</span><b id="rR"></b></div></div></div>
 <button class="btn blue" id="copy">Salin hasil uji 📋</button>
-<button class="btn" id="wa">Kirim ke grup / pilih chat 💬</button>
-<button class="btn ghost" id="wa2">Kirim ke nomor tim 📲</button>
+<button class="btn" id="wa2">Kirim ke developer 🧑‍💻</button>
 <p class="note" id="cpn"></p>
 <button class="btn ghost" id="backSt2">← Lihat status klaim</button>
 <button class="btn ghost" id="editFb">Ubah jawaban</button>
@@ -210,12 +212,11 @@ var WA='6285178973915';
 var TESTI=[];/* testimoni penguji, diisi dari halaman rekap.html *//* nomor WhatsApp tujuan, format 62812xxxxxxxx tanpa + atau spasi. Kosong = pilih kontak sendiri */
 var $=function(i){return document.getElementById(i)},S=[],i,DT=[];
 for(i=0;i<8;i++)S.push($('s'+i));
-var bars=document.querySelectorAll('#steps i'),jenis='',t0=0,tick=null,rating='',elapsed='00:00',ktp=0,sur=0,dmg=0,inked=false,c,x,drawing=false;
+var bars=document.querySelectorAll('#steps i'),jenis='',t0=0,tick=null,rating='',elapsed='00:00',ktp=0,pk=0,inked=false,c,x,drawing=false;
 function fmt(s){var m=Math.floor(s/60),r=s%60;return(m<10?'0':'')+m+':'+(r<10?'0':'')+r}
 function go(n){S.forEach(function(s,k){s.classList.toggle('hide',k!==n)});bars.forEach(function(b,k){b.classList.toggle('on',k<n)});$('main').scrollTop=0;if(n===5)initSig();if(n===4)runChecks()}
 function toast(m){var t=$('toast');t.textContent=m;t.classList.remove('hide');setTimeout(function(){t.classList.add('hide')},4200)}
-var DOC={'Meninggal Dunia':['Surat keterangan kematian','Foto atau PDF dari kelurahan atau rumah sakit',['Surat kematian terbaca','Data cocok dengan polis','Diteruskan ke petugas untuk verifikasi']],'Cacat Tetap':['Surat keterangan dokter','Foto atau PDF yang menyatakan kondisi',['Surat dokter terbaca','Diagnosis tercatat','Diteruskan ke petugas untuk verifikasi']],'Biaya perawatan':['Kuitansi rumah sakit','Foto atau PDF rincian biaya',['Kuitansi terbaca','Total biaya terbaca','Klaim sederhana, bisa diproses otomatis']]};
-function need(){return true}
+
 function chip(o,list){list.forEach(function(t,n){var s=document.createElement('span');s.textContent=t;s.style.animationDelay=n*.25+'s';o.appendChild(s)})}
 $('pn0').oninput=function(){$('hi').textContent=this.value.trim()||'penguji'};
 $('start').onclick=function(){var nm0=$('pn0').value.trim();if(!nm0){toast('Isi namamu dulu ya 😄');$('pn0').focus();return}$('pn').value=nm0;$('tn').textContent=nm0;t0=Date.now();$('timer').classList.remove('hide');clearInterval(tick);tick=setInterval(function(){$('timer').textContent=fmt(Math.floor((Date.now()-t0)/1000))},500);go(1)};
@@ -223,12 +224,11 @@ $('scan').onclick=function(){var v=$('vf');v.classList.remove('go');void v.offse
 $('n1').onclick=function(){go(2)};
 function pick(o){document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('aria-checked',e===o)});jenis=o.dataset.v;$('n2').disabled=false}
 document.querySelectorAll('#jenis .opt').forEach(function(o){o.onclick=function(){pick(o)};o.onkeydown=function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();pick(o)}}});
-$('n2').onclick=function(){var D=DOC[jenis];$('dmgT').textContent=D[0];$('dmgS').textContent=D[1];$('jk').value=jenis;$('dmgCard').classList.toggle('hide',!need());go(3)};
-function chk3(){$('n3').disabled=!(ktp&&sur&&(dmg||!need()))}
+$('n2').onclick=function(){$('jk').value=jenis;go(3)};
+function chk3(){$('n3').disabled=!(ktp&&pk>=4)}
 function scanBtn(btn,box,out,words,flag){box.classList.remove('hide');box.classList.add('go');btn.disabled=true;btn.textContent='Membaca…';setTimeout(function(){btn.textContent='Terbaca ✓';chip(out,words);flag();chk3()},1550)}
 $('uKtp').onclick=function(){scanBtn($('uKtp'),$('ktp'),$('ocr'),['NIK terbaca','Nama terbaca','Tgl lahir terbaca'],function(){ktp=1})};
-$('uSurat').onclick=function(){$('uSurat').textContent='Terunggah ✓';$('uSurat').disabled=true;$('thS').classList.remove('hide');sur=1;chk3()};
-$('uDmg').onclick=function(){scanBtn($('uDmg'),$('car'),$('ocr2'),DOC[jenis][2],function(){dmg=1})};
+document.querySelectorAll('[data-pk]').forEach(function(b){b.onclick=function(){b.disabled=true;b.textContent='Membaca…';setTimeout(function(){b.textContent='Terbaca ✓';chip($('ocr2'),[b.dataset.pk]);pk++;$('pkc').textContent=pk+'/4';chk3()},900)}});
 $('n3').onclick=function(){go(4)};
 function runChecks(){$('n4').disabled=true;var cs=document.querySelectorAll('.chk');cs.forEach(function(e){e.classList.remove('ok')});cs.forEach(function(e,n){setTimeout(function(){e.classList.add('ok');if(n===2)$('n4').disabled=false},500*(n+1))})}
 $('n4').onclick=function(){go(5)};
@@ -240,7 +240,7 @@ document.addEventListener('pointerup',function(){drawing=false});
 $('clr').onclick=function(){x.clearRect(0,0,c.width,c.height);inked=false;$('n5').disabled=true};
 function burst(){var b=$('conf'),cl=['#FF4D3D','#FFC93C','#34D6A0','#2F5BFF'];b.innerHTML='';for(var n=0;n<34;n++){var s=document.createElement('i');s.style.left=Math.random()*96+'%';s.style.background=cl[n%4];s.style.animationDelay=Math.random()*.7+'s';s.style.borderRadius=n%3?'2px':'50%';b.appendChild(s)}setTimeout(function(){b.innerHTML=''},3400)}
 $('n5').onclick=function(){clearInterval(tick);elapsed=fmt(Math.floor((Date.now()-t0)/1000));$('tm').textContent=elapsed;$('jk2').textContent=jenis;go(6);var t=$('tkt');t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');burst()};
-$('notif').onclick=function(){toast('Notifikasi: Foto surat klaim kurang jelas. Unggah ulang agar klaim bisa lanjut.')};
+$('notif').onclick=function(){toast('Notifikasi: Foto SIM kurang jelas. Unggah ulang agar klaim bisa lanjut.')};
 var fb={name:'',rate:'',parts:[],cm:''},rb=document.querySelectorAll('#rate button'),cb=document.querySelectorAll('#chips button');
 rb.forEach(function(b){b.onclick=function(){rb.forEach(function(o){o.setAttribute('aria-pressed',o===b)});fb.rate=b.dataset.v}});
 cb.forEach(function(b){b.onclick=function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);if(on)cb.forEach(function(o){if(o!==b&&(b.dataset.none||o.dataset.none))o.setAttribute('aria-pressed','false')})}});
@@ -253,16 +253,15 @@ $('sendFb').onclick=function(){var n=$('pn').value.trim();if(!n){toast('Isi nama
 fb.name=n;fb.cm=$('cm').value.trim();fb.parts=[];cb.forEach(function(b){if(b.getAttribute('aria-pressed')==='true')fb.parts.push(b.textContent)});
 var sc=parseInt(elapsed,10)*60+parseInt(elapsed.slice(3),10);$('bd').textContent=sc<45?'⚡ Penguji Kilat':sc<90?'🚀 Penguji Sigap':'🐢 Penguji Teliti';$('nm').textContent=n;$('rN').textContent=n;$('rW').textContent=elapsed;$('rP').textContent=fb.parts.length?fb.parts.join(', '):'-';$('rC').textContent=fb.cm||'-';$('rR').textContent=fb.rate?faces[fb.rate]:'-';
 $('fbForm').classList.add('hide');$('fbDone').classList.remove('hide');$('goFb').textContent='Lihat / ubah penilaian ✓';$('main').scrollTop=0;burst()};
-$('wa').onclick=function(){window.open('https://wa.me/?text='+encodeURIComponent(sumText()),'_blank')};
 $('wa2').onclick=function(){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(sumText()),'_blank')};
 $('copy').onclick=function(){var t=sumText(),done=function(){$('cpn').textContent='Tersalin! Tempel dan kirim ke tim 🙌'};try{navigator.clipboard.writeText(t).then(done,function(){$('cpn').textContent=t})}catch(e){$('cpn').textContent=t}};
-function reset(keep){if(!keep){$('pn0').value='';$('hi').textContent='penguji'}DT.forEach(clearTimeout);DT=[];clearInterval(tick);t0=0;jenis='';ktp=0;sur=0;dmg=0;rating='';$('timer').classList.add('hide');$('timer').textContent='00:00';
+function reset(keep){if(!keep){$('pn0').value='';$('hi').textContent='penguji'}DT.forEach(clearTimeout);DT=[];clearInterval(tick);t0=0;jenis='';ktp=0;pk=0;rating='';$('timer').classList.add('hide');$('timer').textContent='00:00';
 $('polRes').classList.add('hide');$('n1').classList.add('hide');$('scan').classList.remove('hide');$('scan').disabled=false;$('vf').classList.remove('go');
 document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('aria-checked','false')});$('n2').disabled=true;
-['ktp','car'].forEach(function(k){$(k).classList.add('hide');$(k).classList.remove('go')});$('ocr').innerHTML='';$('ocr2').innerHTML='';$('thS').classList.add('hide');$('dmgCard').classList.add('hide');
-['uKtp','uSurat','uDmg'].forEach(function(k){$(k).disabled=false;$(k).textContent='Unggah'});$('n3').disabled=true;
+$('ktp').classList.add('hide');$('ktp').classList.remove('go');$('ocr').innerHTML='';$('ocr2').innerHTML='';$('pkc').textContent='0/4';document.querySelectorAll('[data-pk]').forEach(function(b){b.disabled=false;b.textContent='Unggah'});
+['uKtp'].forEach(function(k){$(k).disabled=false;$(k).textContent='Unggah'});$('n3').disabled=true;
 rb.forEach(function(o){o.setAttribute('aria-pressed','false')});cb.forEach(function(o){o.setAttribute('aria-pressed','false')});fb={name:'',rate:'',parts:[],cm:''};$('pn').value='';$('cm').value='';$('cpn').textContent='';$('goFb').textContent='Isi penilaian ✍️';$('fbDone').classList.add('hide');$('fbForm').classList.remove('hide');go(0)}
-function demo(){reset();$('pn0').value='Penguji Demo';$('hi').textContent='Penguji Demo';var q=[[300,function(){$('start').click()}],[900,function(){$('scan').click()}],[2700,function(){$('n1').click()}],[3300,function(){document.querySelectorAll('#jenis .opt')[2].click()}],[3900,function(){$('n2').click()}],[4500,function(){$('uKtp').click()}],[6300,function(){$('uSurat').click()}],[6900,function(){$('uDmg').click()}],[8700,function(){$('n3').click()}],[10800,function(){$('n4').click()}],[11500,function(){var r=c.getBoundingClientRect();x.beginPath();x.moveTo(30,120);x.bezierCurveTo(70,20,90,160,120,70);x.bezierCurveTo(140,10,160,150,200,60);x.bezierCurveTo(220,30,250,120,290,70);x.stroke();inked=true;$('n5').disabled=false}],[12600,function(){$('n5').click()}]];q.forEach(function(s){DT.push(setTimeout(s[1],s[0]))})}
+function demo(){reset();$('pn0').value='Penguji Demo';$('hi').textContent='Penguji Demo';var q=[[300,function(){$('start').click()}],[900,function(){$('scan').click()}],[2700,function(){$('n1').click()}],[3300,function(){document.querySelectorAll('#jenis .opt')[2].click()}],[3900,function(){$('n2').click()}],[4500,function(){$('uKtp').click()}],[6300,function(){document.querySelectorAll('[data-pk]')[0].click()}],[6700,function(){document.querySelectorAll('[data-pk]')[1].click()}],[7100,function(){document.querySelectorAll('[data-pk]')[2].click()}],[7500,function(){document.querySelectorAll('[data-pk]')[3].click()}],[8700,function(){$('n3').click()}],[10800,function(){$('n4').click()}],[11500,function(){var r=c.getBoundingClientRect();x.beginPath();x.moveTo(30,120);x.bezierCurveTo(70,20,90,160,120,70);x.bezierCurveTo(140,10,160,150,200,60);x.bezierCurveTo(220,30,250,120,290,70);x.stroke();inked=true;$('n5').disabled=false}],[12600,function(){$('n5').click()}]];q.forEach(function(s){DT.push(setTimeout(s[1],s[0]))})}
 document.querySelectorAll('[data-demo]').forEach(function(b){b.onclick=demo});
 $('again').onclick=function(){reset(true)};
 document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.btn,.opt,.chips button,.rate button')&&navigator.vibrate)navigator.vibrate(15)});
