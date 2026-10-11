@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="SigapKlaim: prototype klaim asuransi digital. Scan barcode, baca KTP otomatis, tanda tangan di HP. Semua data fiktif.">
+<title>SigapKlaim | Klaim asuransi tanpa antre</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23FF4D3D'/><text x='50' y='72' font-size='60' text-anchor='middle'>🛡️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B1020;--bg:#DCE6FF;--paper:#F5F8FF;--blue:#2F5BFF;--red:#FF4D3D;--yel:#FFC93C;--mint:#34D6A0;--mute:#52608A}
+*{box-sizing:border-box}
+html{box-sizing:border-box}html,body{height:100%}
+body{margin:0;color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.45;background:var(--bg) radial-gradient(var(--ink) 1px,transparent 1.4px) 0 0/22px 22px;background-blend-mode:soft-light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.stage{height:100%;display:flex;justify-content:center;align-items:center}
+.hero{display:none}
+@media(min-width:960px){.stage{display:grid;grid-template-columns:minmax(0,520px) 430px;gap:64px;justify-content:center}.hero{display:block}.phone{height:min(840px,94vh)!important;border:3px solid var(--ink)!important;border-radius:40px!important;box-shadow:12px 12px 0 var(--ink)!important}}
+.hero h2{font-size:clamp(54px,7vw,92px);line-height:.92;letter-spacing:-.045em;margin:0 0 22px;font-weight:800}
+.hero h2 span{display:inline-block;padding:0 12px;border:3px solid var(--ink);border-radius:14px;box-shadow:6px 6px 0 var(--ink);margin:0 0 10px -4px}
+.hero .a{background:var(--yel);transform:rotate(-2deg)}.hero .b{background:var(--mint);transform:rotate(1.5deg)}.hero .c{background:var(--red);color:#fff;transform:rotate(-1deg)}
+.hero p{font-size:18px;max-width:440px;margin:0 0 20px}
+.stk{display:inline-block;font-weight:800;padding:8px 14px;border:3px solid var(--ink);border-radius:12px;background:#fff;box-shadow:4px 4px 0 var(--ink);margin:0 10px 12px 0;font-size:15px}
+.team{display:flex;flex-wrap:wrap;gap:8px}.team span{font-size:13px;font-weight:600;padding:4px 11px;border:2px solid var(--ink);border-radius:99px;background:#fff}
+.phone{width:100%;max-width:430px;height:100%;display:flex;flex-direction:column;background:var(--paper);position:relative;overflow:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;border-bottom:3px solid var(--ink);background:var(--yel)}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.03em}.brand svg{width:32px;height:32px}
+.pill{font-weight:800;font-size:14px;padding:3px 11px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;font-variant-numeric:tabular-nums}
+.steps{display:flex;gap:5px;padding:12px 18px 4px}.steps i{flex:1;height:9px;border:2px solid var(--ink);border-radius:5px;background:#fff;transition:background .3s}.steps i.on{background:var(--blue)}
+main{flex:1;overflow-y:auto;padding:12px 18px 26px}
+h1{font-size:32px;line-height:1.02;letter-spacing:-.04em;margin:6px 0 8px;font-weight:800}
+.sub{margin:0 0 16px;color:var(--mute);font-size:15px}
+.card{background:#fff;border:2.5px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink);padding:16px;margin-bottom:16px}
+.btn{display:block;width:100%;padding:15px;border:2.5px solid var(--ink);border-radius:14px;background:var(--yel);color:var(--ink);font:800 16px "Bricolage Grotesque",sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin-top:14px;transition:transform .08s,box-shadow .08s}
+.btn:active:not(:disabled){transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}.btn:disabled{background:#E3E8F7;color:#8A94B5;box-shadow:none;cursor:not-allowed}
+.btn.blue{background:var(--blue);color:#fff}.btn.sm{width:auto;margin:0;padding:9px 16px;font-size:14px}.btn.ghost{background:#fff}
+button:focus-visible,input:focus-visible,textarea:focus-visible,.opt:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
+.hide{display:none!important}
+.polis{background:var(--blue);color:#fff;position:relative}.polis small{opacity:.8;font-size:13px}.polis b{display:block;font-size:22px;letter-spacing:-.02em}
+.bars{height:42px;margin-top:14px;border-radius:6px;background:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 4px,#fff 4px 5px,transparent 5px 9px,#fff 9px 12px,transparent 12px 14px)}
+.sticker{position:absolute;right:12px;top:-12px;transform:rotate(5deg);background:var(--mint);color:var(--ink);font-weight:800;font-size:12px;padding:3px 10px;border:2.5px solid var(--ink);border-radius:8px}
+.tag{display:inline-block;font-weight:800;font-size:12px;padding:2px 9px;border:2px solid var(--ink);border-radius:8px;background:var(--mint)}
+.hist{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:2px dashed var(--ink);font-size:14px;font-weight:600}.hist:last-child{border:0}.hist span{color:var(--mute);font-weight:400}
+.view{position:relative;height:190px;border:2.5px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink);background:#0B1020;overflow:hidden;display:grid;place-items:center}.view .bars{width:62%;margin:0}
+.view::after,.ktp::after,.car::after{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--red);box-shadow:0 0 18px 6px rgba(255,77,61,.6);opacity:0}
+.go::after{opacity:1;animation:sweep 1.4s linear 1}@keyframes sweep{0%{top:0}50%{top:calc(100% - 4px)}100%{top:0}}
+.cr{position:absolute;width:26px;height:26px;border:4px solid var(--yel)}.c1{top:14px;left:14px;border-right:0;border-bottom:0}.c2{top:14px;right:14px;border-left:0;border-bottom:0}.c3{bottom:14px;left:14px;border-right:0;border-top:0}.c4{bottom:14px;right:14px;border-left:0;border-top:0}
+.res{animation:pop .4s cubic-bezier(.3,1.6,.5,1) both}@keyframes pop{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
+.opt{display:flex;gap:14px;align-items:center;padding:14px;border:2.5px solid var(--ink);border-radius:16px;background:#fff;margin-bottom:12px;cursor:pointer;font-weight:800;font-size:17px;box-shadow:4px 4px 0 var(--ink);transition:.1s}
+.opt[aria-checked=true]{background:var(--yel);transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}.opt i{font-style:normal;font-size:30px}.opt small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.doc{display:flex;align-items:center;gap:12px;justify-content:space-between}.doc small{color:var(--mute);font-size:13px;display:block}
+.ktp{margin-top:14px;border:2.5px solid var(--ink);border-radius:12px;background:linear-gradient(120deg,#9BC7FF,#EAF3FF);padding:12px;font-size:12px;line-height:1.75;position:relative;overflow:hidden;font-weight:600}.ktp b{font-size:13px;letter-spacing:.03em}
+.chip{width:34px;height:26px;border-radius:5px;background:var(--yel);border:2px solid var(--ink);display:inline-block;vertical-align:middle;margin-left:6px}
+.car{margin-top:14px;border:2.5px solid var(--ink);border-radius:12px;background:linear-gradient(#BFD9FF,#EAF3FF);position:relative;overflow:hidden}.car svg{display:block;width:100%}
+.ocr{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}.ocr span{font-size:13px;font-weight:800;padding:4px 11px;border:2px solid var(--ink);border-radius:8px;background:var(--mint);animation:pop .35s both}
+.thumb{margin-top:12px;display:flex;gap:10px;align-items:center;font-size:13px;font-weight:600}.thumb svg{width:34px;height:44px;flex:none}
+label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;margin:14px 0 5px}
+input,textarea{width:100%;padding:12px;border:2.5px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);font:600 16px "Bricolage Grotesque",sans-serif}
+input.auto{background:#D7FAEB}
+.chk{display:flex;gap:11px;align-items:center;font-size:15px;font-weight:600;padding:7px 0;opacity:.45;transition:.3s}.chk b{width:24px;height:24px;border:2.5px solid var(--ink);border-radius:7px;display:grid;place-items:center;font-size:14px;color:transparent;background:#fff}.chk.ok{opacity:1}.chk.ok b{background:var(--mint);color:var(--ink)}
+canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px;background:#fff;touch-action:none}
+.ticket{position:relative;padding:0}.ticket .top{padding:18px 18px 14px;background:var(--yel);border-radius:16px 16px 0 0;border-bottom:3px dashed var(--ink)}.ticket .bot{padding:16px 18px}
+.ticket::before,.ticket::after{content:"";position:absolute;top:calc(var(--n,96px));width:24px;height:24px;border:2.5px solid var(--ink);border-radius:50%;background:var(--paper)}.ticket::before{left:-14px}.ticket::after{right:-14px}
+.ticket small{font-weight:600;color:var(--mute);display:block}.ticket .no{font-size:28px;font-weight:800;letter-spacing:-.03em}
+.stamp{position:absolute;right:12px;top:58px;border:5px solid var(--red);color:var(--red);font-weight:800;font-size:28px;letter-spacing:.04em;padding:2px 12px;border-radius:10px;transform:rotate(-10deg);background:rgba(255,255,255,.7);animation:slam .5s cubic-bezier(.2,1.4,.4,1) .15s both}
+@keyframes slam{from{transform:rotate(-10deg) scale(3.2);opacity:0}to{transform:rotate(-10deg) scale(1);opacity:1}}
+.shake{animation:shk .35s .2s}@keyframes shk{25%{transform:translate(-5px,3px)}50%{transform:translate(5px,-3px)}75%{transform:translate(-3px,2px)}}
+.tl{list-style:none;margin:0;padding:0}.tl li{display:flex;gap:12px;padding-bottom:16px;position:relative;font-size:15px;font-weight:800}.tl li::before{content:"";position:absolute;left:10px;top:24px;bottom:-2px;border-left:3px dashed var(--ink)}.tl li:last-child::before{display:none}
+.dot{width:23px;height:23px;border:2.5px solid var(--ink);border-radius:50%;background:#fff;flex:none}.done .dot{background:var(--mint)}.now .dot{background:var(--yel);animation:pul 1.3s infinite}@keyframes pul{50%{box-shadow:0 0 0 7px rgba(255,201,60,.4)}}
+.tl small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center}.cmp div{padding:14px 6px;border:2.5px solid var(--ink);border-radius:14px}.cmp b{display:block;font-size:22px;line-height:1.1;letter-spacing:-.03em}.cmp small{font-size:12px;font-weight:600}
+.rate{display:flex;gap:8px}.rate button{flex:1;padding:11px 0;border:2.5px solid var(--ink);border-radius:12px;background:#fff;font:800 17px "Bricolage Grotesque",sans-serif;cursor:pointer}.rate button[aria-pressed=true]{background:var(--blue);color:#fff}
+.toast{position:absolute;left:14px;right:14px;top:70px;z-index:5;background:var(--ink);color:#fff;padding:13px 15px;border-radius:14px;border:2.5px solid var(--ink);font-size:14px;font-weight:600;box-shadow:4px 4px 0 var(--red);animation:pop .35s both}
+.conf{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:6}.conf i{position:absolute;top:-20px;width:12px;height:12px;border:2px solid var(--ink);animation:fall 2.4s linear forwards}@keyframes fall{to{transform:translateY(900px) rotate(600deg);opacity:0}}
+.note{font-size:13px;color:var(--mute);text-align:center;margin:10px 0 0;font-weight:600}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="stage">
+<aside class="hero">
+<h2><span class="a">Klaim.</span><br><span class="b">Tanpa antre.</span><br><span class="c">Tanpa ribet.</span></h2>
+<p>Scan barcode polis, foto KTP, tanda tangan di layar. Data terbaca otomatis, klaim jalan di HP kamu.</p>
+<span class="stk">14 hari → ± 1 hari*</span><span class="stk" style="background:var(--mint)">100% data fiktif</span>
+<button class="btn blue" style="width:auto;display:inline-block;margin:0 0 22px" data-demo>▶ Putar demo otomatis</button>
+<p style="font-size:13px;margin:0 0 18px;color:var(--mute)">*estimasi target prototype, belum terbukti di lapangan.<br>Mau coba sendiri? Pakai HP di kanan.</p>
+<b style="font-size:14px">Dibuat oleh Kelompok 4 · Entrepreneurship · BINUS Online</b>
+<div class="team" style="margin-top:10px"><span>Efrata Natania Palit</span><span>Erbianti Oktarisa</span><span>Jane Dewi Trixie</span><span>Moh. Aliiffil Qodri Vanoza Araby</span><span>Sayyidah Aqila Nur Az-Zahra</span></div>
+</aside>
+
+<div class="phone">
+<header><div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="8" fill="#FF4D3D" stroke="#0B1020" stroke-width="2.5"/><path d="M16 6 8 9.5v6c0 5 3.5 8 8 9.5 4.5-1.500 8-4.5 8-9.500v-6z" fill="#fff" stroke="#0B1020" stroke-width="2"/><path d="m12.500 16 2.800 2.800 5-5.600" fill="none" stroke="#0B1020" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round"/></svg>SigapKlaim</div><span class="pill hide" id="timer">00:00</span></header>
+<div class="steps" id="steps"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="toast hide" id="toast" role="status"></div><div class="conf" id="conf" aria-hidden="true"></div>
+<main id="main">
+
+<section id="s0">
+<h1>Halo, Budi!</h1><p class="sub">Klaim dari HP, tanpa antre, tanpa berkas fisik.</p>
+<div class="card polis"><span class="sticker">AKTIF</span><small>Kartu polis digital</small><b>Budi Santoso</b><small>POL-000123456 · Asuransi Kendaraan</small><div class="bars"></div></div>
+<div class="card"><b>Riwayat klaim (dummy)</b>
+<div class="hist"><div>Rawat inap<br><span>KLM-2025-0112</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>12 hari</span></div></div>
+<div class="hist"><div>Kecelakaan kendaraan<br><span>KLM-2025-0034</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>14 hari</span></div></div></div>
+<button class="btn blue" id="start">Ajukan klaim sekarang</button>
+<button class="btn ghost" data-demo>▶ Putar demo otomatis</button>
+<p class="note">Prototype uji coba · data fiktif · waktumu dihitung otomatis</p>
+<div class="team" style="margin-top:14px;justify-content:center"><span>Kelompok 4 · Entrepreneurship BINUS</span></div>
+</section>
+
+<section id="s1" class="hide">
+<h1>Scan barcode polis</h1><p class="sub">Arahkan kamera ke barcode di kartu polis.</p>
+<div class="view" id="vf"><i class="cr c1"></i><i class="cr c2"></i><i class="cr c3"></i><i class="cr c4"></i><div class="bars"></div></div>
+<button class="btn" id="scan">Scan barcode</button>
+<div class="card res hide" id="polRes" style="margin-top:16px"><span class="tag">POLIS TERVERIFIKASI ✓</span><p style="margin:8px 0 0;font-weight:600"><b>Budi Santoso</b><br>POL-000123456 · aktif sampai 31 Des 2027</p></div>
+<button class="btn blue hide" id="n1">Lanjut</button>
+</section>
+
+<section id="s2" class="hide">
+<h1>Apa yang terjadi?</h1><p class="sub">Pilih jenis klaim kamu.</p>
+<div id="jenis">
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Kecelakaan kendaraan"><i>🚗</i><div>Kecelakaan kendaraan<small>Tabrakan, lecet, bodi rusak</small></div></div>
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Rawat inap"><i>🏥</i><div>Rawat inap<small>Biaya perawatan rumah sakit</small></div></div>
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Kehilangan"><i>🔎</i><div>Kehilangan<small>Kendaraan atau barang hilang</small></div></div>
+</div>
+<button class="btn blue" id="n2" disabled>Lanjut</button>
+</section>
+
+<section id="s3" class="hide">
+<h1>Foto dokumen</h1><p class="sub">Cukup foto. Datanya terbaca sendiri, kamu tidak perlu mengetik.</p>
+<div class="card"><div class="doc"><div><b>KTP</b><small>Foto jelas, tidak buram</small></div><button class="btn sm" id="uKtp">Unggah</button></div>
+<div class="ktp hide" id="ktp"><svg style="float:right;width:54px;height:66px;margin-left:8px" viewBox="0 0 52 64" aria-hidden="true"><rect width="52" height="64" rx="4" fill="#C4DEF7" stroke="#0B1020" stroke-width="2"/><circle cx="26" cy="24" r="11" fill="#0B1020"/><path d="M6 64c2-18 12-22 20-22s18 4 20 22z" fill="#0B1020"/></svg><b>PROVINSI DKI JAKARTA</b><span class="chip"></span><br>NIK : 3175 0000 0000 0001<br>Nama : BUDI SANTOSO<br>Tgl Lahir : 12-08-1995</div>
+<div class="ocr" id="ocr"></div></div>
+<div class="card"><div class="doc"><div><b>Surat klaim</b><small>Foto atau PDF</small></div><button class="btn sm" id="uSurat">Unggah</button></div>
+<div class="thumb hide" id="thS"><svg viewBox="0 0 34 44" aria-hidden="true"><rect x="1" y="1" width="32" height="42" rx="4" fill="#fff" stroke="#0B1020" stroke-width="2"/><path d="M7 12h20M7 19h20M7 26h12" stroke="#2F5BFF" stroke-width="3" stroke-linecap="round"/></svg>surat-klaim.pdf · terbaca otomatis</div></div>
+<div class="card hide" id="dmgCard"><div class="doc"><div><b>Foto kerusakan</b><small>Foto bagian yang rusak</small></div><button class="btn sm" id="uDmg">Unggah</button></div>
+<div class="car hide" id="car"><svg viewBox="0 0 320 130" aria-label="Foto dummy mobil, bumper depan penyok"><rect y="105" width="320" height="25" fill="#8FA2CC"/><path d="M30 95V72q0-8 8-10l40-6 28-26q4-4 10-4h70q8 0 12 5l26 25 38 7q8 2 8 10v22z" fill="#2F5BFF" stroke="#0B1020" stroke-width="3"/><path d="M104 56l20-20h62l22 20z" fill="#CFE3FF" stroke="#0B1020" stroke-width="3"/><circle cx="90" cy="100" r="17" fill="#0B1020"/><circle cx="90" cy="100" r="7" fill="#8FA2CC"/><circle cx="235" cy="100" r="17" fill="#0B1020"/><circle cx="235" cy="100" r="7" fill="#8FA2CC"/><rect x="252" y="64" width="50" height="34" rx="4" fill="none" stroke="#FFC93C" stroke-width="4" stroke-dasharray="7 5"/><path d="M262 76l10 8-8 4 10 6" stroke="#fff" stroke-width="2.500" fill="none"/></svg></div><div class="ocr" id="ocr2"></div></div>
+<button class="btn blue" id="n3" disabled>Periksa data</button>
+</section>
+
+<section id="s4" class="hide">
+<h1>Cek datamu</h1><p class="sub">Kolom hijau terisi otomatis dari KTP. Cek sekilas, lalu lanjut.</p>
+<div class="card">
+<label for="nama">Nama <span class="tag">AUTO</span></label><input id="nama" class="auto" value="Budi Santoso">
+<label for="nik">NIK <span class="tag">AUTO</span></label><input id="nik" class="auto" value="3175000000000001" inputmode="numeric">
+<label for="tgl">Tanggal lahir <span class="tag">AUTO</span></label><input id="tgl" class="auto" value="12-08-1995">
+<label for="jk">Jenis klaim</label><input id="jk" readonly></div>
+<div class="card"><div class="chk"><b>✓</b>Polis aktif</div><div class="chk"><b>✓</b>NIK dan tanggal lahir cocok dengan polis</div><div class="chk"><b>✓</b>Berkas lengkap, tidak perlu menunggu</div></div>
+<button class="btn blue" id="n4" disabled>Data sudah benar</button>
+</section>
+
+<section id="s5" class="hide">
+<h1>Tanda tangan</h1><p class="sub">Goreskan tanda tanganmu di kotak ini.</p>
+<div class="card"><canvas id="sig" aria-label="Area tanda tangan"></canvas><button class="btn ghost sm" id="clr" style="margin-top:12px">Hapus</button></div>
+<button class="btn blue" id="n5" disabled>Kirim klaim</button>
+</section>
+
+<section id="s6" class="hide">
+<div class="card ticket" id="tkt"><div class="stamp">TERKIRIM</div>
+<div class="top"><small>Nomor klaim</small><span class="no">KLM-2026-0457</span></div>
+<div class="bot"><small>Jenis klaim</small><b id="jk2"></b><small style="margin-top:10px">Waktu pengajuan</small><b id="tm"></b><div class="bars" style="background:repeating-linear-gradient(90deg,#0B1020 0 2px,transparent 2px 4px,#0B1020 4px 5px,transparent 5px 9px,#0B1020 9px 12px,transparent 12px 14px)"></div></div></div>
+<div class="card"><ul class="tl">
+<li class="done"><span class="dot"></span><div>Klaim diajukan<small>Dari HP, tanpa datang ke kantor</small></div></li>
+<li class="done"><span class="dot"></span><div>Berkas dicek otomatis<small>Barcode, NIK, tanggal lahir cocok</small></div></li>
+<li class="now"><span class="dot"></span><div>Validasi bagian klaim<small>Estimasi selesai 1 hari kerja</small></div></li>
+<li><span class="dot"></span><div>Klaim disetujui<small>Kamu dapat notifikasi</small></div></li></ul>
+<button class="btn ghost" id="notif" style="margin-top:2px">Simulasikan: data kurang</button></div>
+<div class="card cmp"><div style="background:#FFD9D5"><b>sampai 14 hari</b><small>proses manual saat ini</small></div><div style="background:#D7FAEB"><b>± 1 hari</b><small>target SigapKlaim (estimasi)</small></div></div>
+<div class="card"><b style="font-size:18px">Bantu kami menilai</b>
+<label>Seberapa mudah? (1 sulit, 5 mudah)</label><div class="rate" id="rate"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="false">3</button><button aria-pressed="false">4</button><button aria-pressed="false">5</button></div>
+<label for="cm">Bagian mana yang membingungkan?</label><textarea id="cm" rows="3" placeholder="Tulis singkat saja"></textarea>
+<button class="btn" id="copy">Salin hasil uji</button><p class="note" id="cpn"></p></div>
+<button class="btn ghost" id="again">Coba lagi dari awal</button>
+</section>
+</main>
+</div>
+</div>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},S=[],i,DT=[];
+for(i=0;i<7;i++)S.push($('s'+i));
+var bars=document.querySelectorAll('#steps i'),jenis='',t0=0,tick=null,rating='',elapsed='00:00',ktp=0,sur=0,dmg=0,inked=false,c,x,drawing=false;
+function fmt(s){var m=Math.floor(s/60),r=s%60;return(m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+function go(n){S.forEach(function(s,k){s.classList.toggle('hide',k!==n)});bars.forEach(function(b,k){b.classList.toggle('on',k<n)});$('main').scrollTop=0;if(n===5)initSig();if(n===4)runChecks()}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.remove('hide');setTimeout(function(){t.classList.add('hide')},4200)}
+function need(){return jenis==='Kecelakaan kendaraan'}
+function chip(o,list){list.forEach(function(t,n){var s=document.createElement('span');s.textContent=t;s.style.animationDelay=n*.25+'s';o.appendChild(s)})}
+$('start').onclick=function(){t0=Date.now();$('timer').classList.remove('hide');clearInterval(tick);tick=setInterval(function(){$('timer').textContent=fmt(Math.floor((Date.now()-t0)/1000))},500);go(1)};
+$('scan').onclick=function(){var v=$('vf');v.classList.remove('go');void v.offsetWidth;v.classList.add('go');$('scan').disabled=true;setTimeout(function(){$('polRes').classList.remove('hide');$('n1').classList.remove('hide');$('scan').classList.add('hide')},1300)};
+$('n1').onclick=function(){go(2)};
+function pick(o){document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('aria-checked',e===o)});jenis=o.dataset.v;$('n2').disabled=false}
+document.querySelectorAll('#jenis .opt').forEach(function(o){o.onclick=function(){pick(o)};o.onkeydown=function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();pick(o)}}});
+$('n2').onclick=function(){$('jk').value=jenis;$('dmgCard').classList.toggle('hide',!need());go(3)};
+function chk3(){$('n3').disabled=!(ktp&&sur&&(dmg||!need()))}
+function scanBtn(btn,box,out,words,flag){box.classList.remove('hide');box.classList.add('go');btn.disabled=true;btn.textContent='Membaca…';setTimeout(function(){btn.textContent='Terbaca ✓';chip(out,words);flag();chk3()},1550)}
+$('uKtp').onclick=function(){scanBtn($('uKtp'),$('ktp'),$('ocr'),['NIK terbaca','Nama terbaca','Tgl lahir terbaca'],function(){ktp=1})};
+$('uSurat').onclick=function(){$('uSurat').textContent='Terunggah ✓';$('uSurat').disabled=true;$('thS').classList.remove('hide');sur=1;chk3()};
+$('uDmg').onclick=function(){scanBtn($('uDmg'),$('car'),$('ocr2'),['Bumper depan penyok','Tingkat: ringan-sedang','Klaim sederhana, bisa otomatis'],function(){dmg=1})};
+$('n3').onclick=function(){go(4)};
+function runChecks(){$('n4').disabled=true;var cs=document.querySelectorAll('.chk');cs.forEach(function(e){e.classList.remove('ok')});cs.forEach(function(e,n){setTimeout(function(){e.classList.add('ok');if(n===2)$('n4').disabled=false},500*(n+1))})}
+$('n4').onclick=function(){go(5)};
+function initSig(){c=$('sig');var r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;x=c.getContext('2d');x.scale(d,d);x.lineWidth=3;x.lineCap='round';x.strokeStyle='#0B1020';inked=false;$('n5').disabled=true}
+function pos(e){var r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+document.addEventListener('pointerdown',function(e){if(e.target!==c)return;drawing=true;var p=pos(e);x.beginPath();x.moveTo(p[0],p[1]);c.setPointerCapture(e.pointerId)});
+document.addEventListener('pointermove',function(e){if(!drawing)return;var p=pos(e);x.lineTo(p[0],p[1]);x.stroke();if(!inked){inked=true;$('n5').disabled=false}});
+document.addEventListener('pointerup',function(){drawing=false});
+$('clr').onclick=function(){x.clearRect(0,0,c.width,c.height);inked=false;$('n5').disabled=true};
+function burst(){var b=$('conf'),cl=['#FF4D3D','#FFC93C','#34D6A0','#2F5BFF'];b.innerHTML='';for(var n=0;n<34;n++){var s=document.createElement('i');s.style.left=Math.random()*96+'%';s.style.background=cl[n%4];s.style.animationDelay=Math.random()*.7+'s';s.style.borderRadius=n%3?'2px':'50%';b.appendChild(s)}setTimeout(function(){b.innerHTML=''},3400)}
+$('n5').onclick=function(){clearInterval(tick);elapsed=fmt(Math.floor((Date.now()-t0)/1000));$('tm').textContent=elapsed;$('jk2').textContent=jenis;go(6);var t=$('tkt');t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');burst()};
+$('notif').onclick=function(){toast('Notifikasi: Foto surat klaim kurang jelas. Unggah ulang agar klaim bisa lanjut.')};
+var rb=document.querySelectorAll('#rate button');rb.forEach(function(b){b.onclick=function(){rb.forEach(function(o){o.setAttribute('aria-pressed',o===b)});rating=b.textContent}});
+$('copy').onclick=function(){var t='Hasil uji SigapKlaim | Waktu: '+elapsed+' | Kemudahan: '+(rating||'-')+'/5 | Catatan: '+($('cm').value||'-');var done=function(){$('cpn').textContent='Tersalin! Tempel dan kirim ke grup.'};try{navigator.clipboard.writeText(t).then(done,function(){$('cpn').textContent=t})}catch(e){$('cpn').textContent=t}};
+function reset(){DT.forEach(clearTimeout);DT=[];clearInterval(tick);t0=0;jenis='';ktp=0;sur=0;dmg=0;rating='';$('timer').classList.add('hide');$('timer').textContent='00:00';
+$('polRes').classList.add('hide');$('n1').classList.add('hide');$('scan').classList.remove('hide');$('scan').disabled=false;$('vf').classList.remove('go');
+document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('aria-checked','false')});$('n2').disabled=true;
+['ktp','car'].forEach(function(k){$(k).classList.add('hide');$(k).classList.remove('go')});$('ocr').innerHTML='';$('ocr2').innerHTML='';$('thS').classList.add('hide');$('dmgCard').classList.add('hide');
+['uKtp','uSurat','uDmg'].forEach(function(k){$(k).disabled=false;$(k).textContent='Unggah'});$('n3').disabled=true;
+rb.forEach(function(o){o.setAttribute('aria-pressed','false')});$('cm').value='';$('cpn').textContent='';go(0)}
+function demo(){reset();var q=[[300,function(){$('start').click()}],[900,function(){$('scan').click()}],[2700,function(){$('n1').click()}],[3300,function(){document.querySelector('#jenis .opt').click()}],[3900,function(){$('n2').click()}],[4500,function(){$('uKtp').click()}],[6300,function(){$('uSurat').click()}],[6900,function(){$('uDmg').click()}],[8700,function(){$('n3').click()}],[10800,function(){$('n4').click()}],[11500,function(){var r=c.getBoundingClientRect();x.beginPath();x.moveTo(30,120);x.bezierCurveTo(70,20,90,160,120,70);x.bezierCurveTo(140,10,160,150,200,60);x.bezierCurveTo(220,30,250,120,290,70);x.stroke();inked=true;$('n5').disabled=false}],[12600,function(){$('n5').click()}]];q.forEach(function(s){DT.push(setTimeout(s[1],s[0]))})}
+document.querySelectorAll('[data-demo]').forEach(function(b){b.onclick=demo});
+$('again').onclick=reset;go(0);
+})();
+</script>
+</body>
+</html>
