@@ -102,10 +102,11 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <section id="s0">
 <h1>Halo, <span id="hi">penguji</span>!</h1><p class="sub">Klaim dari HP, tanpa antre, tanpa berkas fisik.</p>
 <div class="card" style="background:var(--yel)"><label for="pn0" style="margin-top:0;font-size:16px">Kenalan dulu 👋 Siapa namamu?</label><input id="pn0" placeholder="Ketik namamu di sini" autocomplete="name" maxlength="40"><p class="note" style="text-align:left;margin-top:8px;color:var(--ink)">Kamu jadi penguji. Namamu ikut tercatat di hasil uji.</p></div>
-<div class="card polis"><span class="sticker">AKTIF</span><small>Kartu polis digital</small><b>Budi Santoso</b><small>POL-000123456 · Asuransi Kendaraan</small><div class="bars"></div></div>
+<div class="card polis"><span class="sticker">AKTIF</span><small>Kartu polis digital</small><b>Budi Santoso</b><small>POL-000123456 · Asuransi Jiwa</small><div class="bars"></div></div>
 <div class="card"><b>Riwayat klaim (dummy)</b>
-<div class="hist"><div>Rawat inap<br><span>KLM-2025-0112</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>12 hari</span></div></div>
-<div class="hist"><div>Kecelakaan kendaraan<br><span>KLM-2025-0034</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>14 hari</span></div></div></div>
+<div class="hist"><div>Biaya perawatan<br><span>KLM-2025-0112</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>12 hari</span></div></div>
+<div class="hist"><div>Cacat tetap<br><span>KLM-2025-0034</span></div><div style="text-align:right"><span class="tag">Selesai</span><br><span>14 hari</span></div></div></div>
+<div class="card hide" id="tsCard"><b>Kata penguji 💬</b><div id="tsList" style="margin-top:6px"></div></div>
 <button class="btn blue" id="start">Ajukan klaim sekarang</button>
 <button class="btn ghost" data-demo>▶ Putar demo otomatis</button>
 <p class="note">Prototype uji coba · data fiktif · waktumu dihitung otomatis</p>
@@ -123,9 +124,9 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <section id="s2" class="hide">
 <h1>Apa yang terjadi?</h1><p class="sub">Pilih jenis klaim kamu.</p>
 <div id="jenis">
-<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Kecelakaan kendaraan"><i>🚗</i><div>Kecelakaan kendaraan<small>Tabrakan, lecet, bodi rusak</small></div></div>
-<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Rawat inap"><i>🏥</i><div>Rawat inap<small>Biaya perawatan rumah sakit</small></div></div>
-<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Kehilangan"><i>🔎</i><div>Kehilangan<small>Kendaraan atau barang hilang</small></div></div>
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Meninggal Dunia"><i>🕊️</i><div>Meninggal Dunia<small>Santunan untuk ahli waris</small></div></div>
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Cacat Tetap"><i>🦽</i><div>Cacat Tetap<small>Kehilangan fungsi tubuh secara permanen</small></div></div>
+<div class="opt" role="radio" tabindex="0" aria-checked="false" data-v="Biaya perawatan"><i>🏥</i><div>Biaya perawatan<small>Penggantian biaya rumah sakit</small></div></div>
 </div>
 <button class="btn blue" id="n2" disabled>Lanjut</button>
 </section>
@@ -137,8 +138,8 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <div class="ocr" id="ocr"></div></div>
 <div class="card"><div class="doc"><div><b>Surat klaim</b><small>Foto atau PDF</small></div><button class="btn sm" id="uSurat">Unggah</button></div>
 <div class="thumb hide" id="thS"><svg viewBox="0 0 34 44" aria-hidden="true"><rect x="1" y="1" width="32" height="42" rx="4" fill="#fff" stroke="#0B1020" stroke-width="2"/><path d="M7 12h20M7 19h20M7 26h12" stroke="#2F5BFF" stroke-width="3" stroke-linecap="round"/></svg>surat-klaim.pdf · terbaca otomatis</div></div>
-<div class="card hide" id="dmgCard"><div class="doc"><div><b>Foto kerusakan</b><small>Foto bagian yang rusak</small></div><button class="btn sm" id="uDmg">Unggah</button></div>
-<div class="car hide" id="car"><svg viewBox="0 0 320 130" aria-label="Foto dummy mobil, bumper depan penyok"><rect y="105" width="320" height="25" fill="#8FA2CC"/><path d="M30 95V72q0-8 8-10l40-6 28-26q4-4 10-4h70q8 0 12 5l26 25 38 7q8 2 8 10v22z" fill="#2F5BFF" stroke="#0B1020" stroke-width="3"/><path d="M104 56l20-20h62l22 20z" fill="#CFE3FF" stroke="#0B1020" stroke-width="3"/><circle cx="90" cy="100" r="17" fill="#0B1020"/><circle cx="90" cy="100" r="7" fill="#8FA2CC"/><circle cx="235" cy="100" r="17" fill="#0B1020"/><circle cx="235" cy="100" r="7" fill="#8FA2CC"/><rect x="252" y="64" width="50" height="34" rx="4" fill="none" stroke="#FFC93C" stroke-width="4" stroke-dasharray="7 5"/><path d="M262 76l10 8-8 4 10 6" stroke="#fff" stroke-width="2.500" fill="none"/></svg></div><div class="ocr" id="ocr2"></div></div>
+<div class="card hide" id="dmgCard"><div class="doc"><div><b id="dmgT">Dokumen pendukung</b><small id="dmgS">Foto atau PDF</small></div><button class="btn sm" id="uDmg">Unggah</button></div>
+<div class="car hide" id="car"><svg viewBox="0 0 320 130" aria-label="Dokumen pendukung dummy"><rect x="95" y="8" width="130" height="114" rx="6" fill="#fff" stroke="#0B1020" stroke-width="3"/><path d="M112 34h96M112 50h96M112 66h70M112 82h96" stroke="#2F5BFF" stroke-width="4" stroke-linecap="round"/><rect x="104" y="24" width="112" height="52" rx="4" fill="none" stroke="#FFC93C" stroke-width="4" stroke-dasharray="7 5"/><circle cx="196" cy="102" r="14" fill="none" stroke="#FF4D3D" stroke-width="3"/><path d="m190 102 4 4 8-9" stroke="#FF4D3D" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div><div class="ocr" id="ocr2"></div></div>
 <button class="btn blue" id="n3" disabled>Periksa data</button>
 </section>
 
@@ -193,7 +194,8 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 <h1 style="font-size:28px;margin-top:0">Makasih, <span id="nm"></span>! 🎉</h1><div class="badge" id="bd"></div>
 <div class="sum"><div class="r"><span>Penguji</span><b id="rN"></b></div><div class="r"><span>Waktu menyelesaikan klaim</span><b id="rW"></b></div><div class="r"><span>Bagian yang membingungkan</span><b id="rP"></b></div><div class="r"><span>Komentar</span><b id="rC"></b></div><div class="r" style="border:0"><span>Kemudahan</span><b id="rR"></b></div></div></div>
 <button class="btn blue" id="copy">Salin hasil uji 📋</button>
-<button class="btn" id="wa">Kirim lewat WhatsApp 💬</button>
+<button class="btn" id="wa">Kirim ke grup / pilih chat 💬</button>
+<button class="btn ghost" id="wa2">Kirim ke nomor tim 📲</button>
 <p class="note" id="cpn"></p>
 <button class="btn ghost" id="backSt2">← Lihat status klaim</button>
 <button class="btn ghost" id="editFb">Ubah jawaban</button>
@@ -204,14 +206,16 @@ canvas{width:100%;height:180px;border:2.5px dashed var(--ink);border-radius:14px
 </div>
 <script>
 (function(){
-var WA='6285178973915';/* nomor WhatsApp tujuan, format 62812xxxxxxxx tanpa + atau spasi. Kosong = pilih kontak sendiri */
+var WA='6285178973915';
+var TESTI=[];/* testimoni penguji, diisi dari halaman rekap.html *//* nomor WhatsApp tujuan, format 62812xxxxxxxx tanpa + atau spasi. Kosong = pilih kontak sendiri */
 var $=function(i){return document.getElementById(i)},S=[],i,DT=[];
 for(i=0;i<8;i++)S.push($('s'+i));
 var bars=document.querySelectorAll('#steps i'),jenis='',t0=0,tick=null,rating='',elapsed='00:00',ktp=0,sur=0,dmg=0,inked=false,c,x,drawing=false;
 function fmt(s){var m=Math.floor(s/60),r=s%60;return(m<10?'0':'')+m+':'+(r<10?'0':'')+r}
 function go(n){S.forEach(function(s,k){s.classList.toggle('hide',k!==n)});bars.forEach(function(b,k){b.classList.toggle('on',k<n)});$('main').scrollTop=0;if(n===5)initSig();if(n===4)runChecks()}
 function toast(m){var t=$('toast');t.textContent=m;t.classList.remove('hide');setTimeout(function(){t.classList.add('hide')},4200)}
-function need(){return jenis==='Kecelakaan kendaraan'}
+var DOC={'Meninggal Dunia':['Surat keterangan kematian','Foto atau PDF dari kelurahan atau rumah sakit',['Surat kematian terbaca','Data cocok dengan polis','Diteruskan ke petugas untuk verifikasi']],'Cacat Tetap':['Surat keterangan dokter','Foto atau PDF yang menyatakan kondisi',['Surat dokter terbaca','Diagnosis tercatat','Diteruskan ke petugas untuk verifikasi']],'Biaya perawatan':['Kuitansi rumah sakit','Foto atau PDF rincian biaya',['Kuitansi terbaca','Total biaya terbaca','Klaim sederhana, bisa diproses otomatis']]};
+function need(){return true}
 function chip(o,list){list.forEach(function(t,n){var s=document.createElement('span');s.textContent=t;s.style.animationDelay=n*.25+'s';o.appendChild(s)})}
 $('pn0').oninput=function(){$('hi').textContent=this.value.trim()||'penguji'};
 $('start').onclick=function(){var nm0=$('pn0').value.trim();if(!nm0){toast('Isi namamu dulu ya 😄');$('pn0').focus();return}$('pn').value=nm0;$('tn').textContent=nm0;t0=Date.now();$('timer').classList.remove('hide');clearInterval(tick);tick=setInterval(function(){$('timer').textContent=fmt(Math.floor((Date.now()-t0)/1000))},500);go(1)};
@@ -219,12 +223,12 @@ $('scan').onclick=function(){var v=$('vf');v.classList.remove('go');void v.offse
 $('n1').onclick=function(){go(2)};
 function pick(o){document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('aria-checked',e===o)});jenis=o.dataset.v;$('n2').disabled=false}
 document.querySelectorAll('#jenis .opt').forEach(function(o){o.onclick=function(){pick(o)};o.onkeydown=function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();pick(o)}}});
-$('n2').onclick=function(){$('jk').value=jenis;$('dmgCard').classList.toggle('hide',!need());go(3)};
+$('n2').onclick=function(){var D=DOC[jenis];$('dmgT').textContent=D[0];$('dmgS').textContent=D[1];$('jk').value=jenis;$('dmgCard').classList.toggle('hide',!need());go(3)};
 function chk3(){$('n3').disabled=!(ktp&&sur&&(dmg||!need()))}
 function scanBtn(btn,box,out,words,flag){box.classList.remove('hide');box.classList.add('go');btn.disabled=true;btn.textContent='Membaca…';setTimeout(function(){btn.textContent='Terbaca ✓';chip(out,words);flag();chk3()},1550)}
 $('uKtp').onclick=function(){scanBtn($('uKtp'),$('ktp'),$('ocr'),['NIK terbaca','Nama terbaca','Tgl lahir terbaca'],function(){ktp=1})};
 $('uSurat').onclick=function(){$('uSurat').textContent='Terunggah ✓';$('uSurat').disabled=true;$('thS').classList.remove('hide');sur=1;chk3()};
-$('uDmg').onclick=function(){scanBtn($('uDmg'),$('car'),$('ocr2'),['Bumper depan penyok','Tingkat: ringan-sedang','Klaim sederhana, bisa otomatis'],function(){dmg=1})};
+$('uDmg').onclick=function(){scanBtn($('uDmg'),$('car'),$('ocr2'),DOC[jenis][2],function(){dmg=1})};
 $('n3').onclick=function(){go(4)};
 function runChecks(){$('n4').disabled=true;var cs=document.querySelectorAll('.chk');cs.forEach(function(e){e.classList.remove('ok')});cs.forEach(function(e,n){setTimeout(function(){e.classList.add('ok');if(n===2)$('n4').disabled=false},500*(n+1))})}
 $('n4').onclick=function(){go(5)};
@@ -249,7 +253,8 @@ $('sendFb').onclick=function(){var n=$('pn').value.trim();if(!n){toast('Isi nama
 fb.name=n;fb.cm=$('cm').value.trim();fb.parts=[];cb.forEach(function(b){if(b.getAttribute('aria-pressed')==='true')fb.parts.push(b.textContent)});
 var sc=parseInt(elapsed,10)*60+parseInt(elapsed.slice(3),10);$('bd').textContent=sc<45?'⚡ Penguji Kilat':sc<90?'🚀 Penguji Sigap':'🐢 Penguji Teliti';$('nm').textContent=n;$('rN').textContent=n;$('rW').textContent=elapsed;$('rP').textContent=fb.parts.length?fb.parts.join(', '):'-';$('rC').textContent=fb.cm||'-';$('rR').textContent=fb.rate?faces[fb.rate]:'-';
 $('fbForm').classList.add('hide');$('fbDone').classList.remove('hide');$('goFb').textContent='Lihat / ubah penilaian ✓';$('main').scrollTop=0;burst()};
-$('wa').onclick=function(){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(sumText()),'_blank')};
+$('wa').onclick=function(){window.open('https://wa.me/?text='+encodeURIComponent(sumText()),'_blank')};
+$('wa2').onclick=function(){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(sumText()),'_blank')};
 $('copy').onclick=function(){var t=sumText(),done=function(){$('cpn').textContent='Tersalin! Tempel dan kirim ke tim 🙌'};try{navigator.clipboard.writeText(t).then(done,function(){$('cpn').textContent=t})}catch(e){$('cpn').textContent=t}};
 function reset(keep){if(!keep){$('pn0').value='';$('hi').textContent='penguji'}DT.forEach(clearTimeout);DT=[];clearInterval(tick);t0=0;jenis='';ktp=0;sur=0;dmg=0;rating='';$('timer').classList.add('hide');$('timer').textContent='00:00';
 $('polRes').classList.add('hide');$('n1').classList.add('hide');$('scan').classList.remove('hide');$('scan').disabled=false;$('vf').classList.remove('go');
@@ -257,10 +262,11 @@ document.querySelectorAll('#jenis .opt').forEach(function(e){e.setAttribute('ari
 ['ktp','car'].forEach(function(k){$(k).classList.add('hide');$(k).classList.remove('go')});$('ocr').innerHTML='';$('ocr2').innerHTML='';$('thS').classList.add('hide');$('dmgCard').classList.add('hide');
 ['uKtp','uSurat','uDmg'].forEach(function(k){$(k).disabled=false;$(k).textContent='Unggah'});$('n3').disabled=true;
 rb.forEach(function(o){o.setAttribute('aria-pressed','false')});cb.forEach(function(o){o.setAttribute('aria-pressed','false')});fb={name:'',rate:'',parts:[],cm:''};$('pn').value='';$('cm').value='';$('cpn').textContent='';$('goFb').textContent='Isi penilaian ✍️';$('fbDone').classList.add('hide');$('fbForm').classList.remove('hide');go(0)}
-function demo(){reset();$('pn0').value='Penguji Demo';$('hi').textContent='Penguji Demo';var q=[[300,function(){$('start').click()}],[900,function(){$('scan').click()}],[2700,function(){$('n1').click()}],[3300,function(){document.querySelector('#jenis .opt').click()}],[3900,function(){$('n2').click()}],[4500,function(){$('uKtp').click()}],[6300,function(){$('uSurat').click()}],[6900,function(){$('uDmg').click()}],[8700,function(){$('n3').click()}],[10800,function(){$('n4').click()}],[11500,function(){var r=c.getBoundingClientRect();x.beginPath();x.moveTo(30,120);x.bezierCurveTo(70,20,90,160,120,70);x.bezierCurveTo(140,10,160,150,200,60);x.bezierCurveTo(220,30,250,120,290,70);x.stroke();inked=true;$('n5').disabled=false}],[12600,function(){$('n5').click()}]];q.forEach(function(s){DT.push(setTimeout(s[1],s[0]))})}
+function demo(){reset();$('pn0').value='Penguji Demo';$('hi').textContent='Penguji Demo';var q=[[300,function(){$('start').click()}],[900,function(){$('scan').click()}],[2700,function(){$('n1').click()}],[3300,function(){document.querySelectorAll('#jenis .opt')[2].click()}],[3900,function(){$('n2').click()}],[4500,function(){$('uKtp').click()}],[6300,function(){$('uSurat').click()}],[6900,function(){$('uDmg').click()}],[8700,function(){$('n3').click()}],[10800,function(){$('n4').click()}],[11500,function(){var r=c.getBoundingClientRect();x.beginPath();x.moveTo(30,120);x.bezierCurveTo(70,20,90,160,120,70);x.bezierCurveTo(140,10,160,150,200,60);x.bezierCurveTo(220,30,250,120,290,70);x.stroke();inked=true;$('n5').disabled=false}],[12600,function(){$('n5').click()}]];q.forEach(function(s){DT.push(setTimeout(s[1],s[0]))})}
 document.querySelectorAll('[data-demo]').forEach(function(b){b.onclick=demo});
 $('again').onclick=function(){reset(true)};
 document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.btn,.opt,.chips button,.rate button')&&navigator.vibrate)navigator.vibrate(15)});
+(function(){var EM={1:'😵',2:'😕',3:'😐',4:'🙂',5:'🤩'};if(!TESTI.length)return;$('tsCard').classList.remove('hide');TESTI.forEach(function(t){var d=document.createElement('div');d.className='hist';var a=document.createElement('div'),b=document.createElement('b'),sp=document.createElement('span');b.textContent=t.n;sp.textContent='“'+t.c+'”';a.appendChild(b);a.appendChild(document.createElement('br'));a.appendChild(sp);var e=document.createElement('div');e.style.fontSize='24px';e.textContent=EM[t.r]||'💬';d.appendChild(a);d.appendChild(e);$('tsList').appendChild(d)})})();
 go(0);
 })();
 </script>
